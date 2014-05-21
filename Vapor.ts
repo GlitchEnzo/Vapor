@@ -1,6 +1,13 @@
 ﻿/// <reference path="Game/VaporObject.ts" />
 
+/// <reference path="Graphics/Canvas.ts" />
+
 /// <reference path="Math/Vector3.ts" />
+
+/**
+ * The global handle to the current instance of the WebGL rendering context.
+ */ 
+var gl: WebGLRenderingContext;
 
 class Greeter {
     element: HTMLElement;
@@ -26,7 +33,10 @@ class Greeter {
 }
 
 window.onload = () => {
+    console.log("OnLoad!");
     var el = document.getElementById('content');
     var greeter = new Greeter(el);
     greeter.start();
+    var canvas = new Vapor.Canvas();
+    canvas.Resize();
 };
