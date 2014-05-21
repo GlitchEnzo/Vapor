@@ -1,7 +1,8 @@
 ﻿body {
-    font-family: 'Segoe UI', sans-serif;
+  margin: 0px; /* Prevents the canvas from having 5 pixels of space surrounding it. */
 }
 
-span {
-    font-style: italic;
+canvas {
+  margin: 0px;
+  display: block; /* Prevents the canvas from having 5 pixels of space below it. */
 }

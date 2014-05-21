@@ -5,7 +5,12 @@
          */
         element: HTMLCanvasElement;
 
-        Canvas(canvasElement?: HTMLCanvasElement) {
+        /**
+         * Creates a new instance of a Canvas.
+         * @constructor
+         * @param {HTMLCanvasElement} [canvasElement] - The existing HTML Canvas Element to use.  If not provided, a new Canvas will be created and appended to the document.
+         */
+        constructor(canvasElement?: HTMLCanvasElement) {
             console.log("Initializing canvas.");
             // if an existing canvas element was passed in, use it, otherwise create a new one
             if (canvasElement) {

@@ -22,8 +22,8 @@
         /**
          * Creates a new instance of a VaporObject.
          */
-        constructor() {
-            this.name = "VaporObject";
+        constructor(name: string = "VaporObject") {
+            this.Name = name;
         }
     }
 } 
