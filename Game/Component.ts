@@ -14,55 +14,51 @@ module Vapor {
         /**
          * Gets the enabled state of this Component.
          */
-        get Enabled(): boolean {
-            return this.enabled;
-        }
+        get Enabled(): boolean { return this.enabled; }
 
         /**
          * Sets the enabled state of this Component.
          */
-        set Enabled(value: boolean) {
-            this.enabled = value;
-        }
+        set Enabled(value: boolean) { this.enabled = value; }
 
         /**
          * The GameObject this Component is attached to
          */
-        public gameObject: GameObject = null;
+        public gameObject: GameObject;
 
         /**
          * The Transform of the GameObject
          */
-        //Transform get transform => gameObject.transform;
+        public get transform(): Transform { return this.gameObject.transform; }
 
         /**
          * The Scene that this Component belongs to.
          */
-        //Scene get scene => gameObject.scene;
+        public get scene(): Scene { return this.gameObject.scene; }
 
         /**
          * Called as soon as this Component gets added to a GameObject
          */
-        Awake() { }
+        public Awake() { }
 
         /**
          * Called when the parent GameObject gets added to a Scene.
          */
-        Start() { }
+        public Start() { }
 
         /**
          * Called once per frame.
          */
-        Update() { }
+        public Update() { }
 
         /**
          * Called once per frame.  Put rendering code inside here.
          */
-        Render() { }
+        public Render() { }
 
         /**
          * Called whenver collisions are detected via the physics engine (Box2D).
          */
-        //OnCollision(Box2D.Contact contact) { }
+        //public OnCollision(contact: Box2D.Contact) { }
     }
 }

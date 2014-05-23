@@ -1,4 +1,6 @@
-﻿module Vapor {
+﻿/// <reference path="../Math/Transform.ts" />
+
+module Vapor {
     /**
      * Represents the base object of everything that is in a Scene.
      * @class Represents a GameObject
@@ -28,7 +30,7 @@
         /**
          * The Transform attached to this GameObject.
          */
-        //transform: Transform;
+        public transform: Transform;
 
         /**
          * The Renderer attached to this GameObject, if there is one.
@@ -52,8 +54,8 @@
 
         constructor() {
             super("GameObject");
-            //this.transform = new Transform();
-            //this.AddComponent(this.transform);
+            this.transform = new Transform();
+            this.AddComponent(this.transform);
         }
 
         /**

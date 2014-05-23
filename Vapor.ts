@@ -11,10 +11,14 @@
 /// <reference path="Input/TouchData.ts" />
 /// <reference path="Input/TouchPhase.ts" />
 
+/// <reference path="Math/Matrix.ts" />
+/// <reference path="Math/Quaternion.ts" />
+/// <reference path="Math/Transform.ts" />
 /// <reference path="Math/Vector2.ts" />
 /// <reference path="Math/Vector3.ts" />
 
 /// <reference path="Utilities/ArrayExtensions.ts" />
+/// <reference path="Utilities/FileDownloader.ts" />
 /// <reference path="Utilities/Time.ts" />
 
 /**
