@@ -25,8 +25,7 @@
         /**
          * Gets the first camera in the scene.
          */
-        //Camera get camera
-        //{
+        //public get Camera(): Camera {
         //    return cameras[0];
         //}
 
@@ -62,7 +61,7 @@
             // We need to initialize values on input classes
             Keyboard.Initialize();
             Mouse.Initialize();
-            //Touch touch = new Touch();
+            TouchInput.Initialize();
         }
 
         /**
@@ -118,7 +117,7 @@
                 // Update all of the Input
                 Keyboard.Update();
                 Mouse.Update();
-                //Touch.Update();
+                TouchInput.Update();
 
                 this.Render();
 
