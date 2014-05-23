@@ -24,14 +24,22 @@
         }
 
         /**
-         * Creates a new instance of a Vector3 initialized to [0, 0, 0]
+         * Creates a new instance of a Vector3 initialized to the given values or [0, 0, 0].
          * @constructor
          */
-        constructor() {
+        constructor(x: number = 0, y: number = 0, z: number = 0) {
             this.data = new Float32Array(3);
-            this.data[0] = 0;
-            this.data[1] = 0;
-            this.data[2] = 0;
+            this.data[0] = x;
+            this.data[1] = y;
+            this.data[2] = z;
+        }
+
+        public static Copy(other: Vector3) {
+            var copy = new Vector3();
+            copy.data[0] = other.data[0];
+            copy.data[1] = other.data[1];
+            copy.data[2] = other.data[2];
+            return copy;
         }
 
         /**

@@ -11,15 +11,11 @@
          * @param {HTMLCanvasElement} [canvasElement] - The existing HTML Canvas Element to use.  If not provided, a new Canvas will be created and appended to the document.
          */
         constructor(canvasElement?: HTMLCanvasElement) {
-            console.log("Initializing canvas.");
             // if an existing canvas element was passed in, use it, otherwise create a new one
             if (canvasElement) {
-                console.log("Using existing canvas element.");
                 this.element = canvasElement;
             }
             else {
-                console.log("Constructing a new canvas element.");
-                //this.element = new HTMLCanvasElement(width: window.innerWidth, height: window.innerHeight);
                 this.element = document.createElement("canvas")
                 this.element.id = "VaporCanvas";
                 this.element.width = window.innerWidth;

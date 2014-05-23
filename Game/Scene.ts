@@ -45,8 +45,6 @@
          */
         private gravity: Vector2;
 
-        //constructor(CanvasElement canvasElement, [Vector2 gravity]) : this.FromCanvas(new Canvas.FromElement(canvasElement), gravity);
-
         constructor(canvas: Canvas = new Canvas(), gravity: Vector2 = new Vector2(0.0, -9.8)) {
             super("Scene");
 
@@ -56,15 +54,14 @@
             //world = new Box2D.World(_gravity, true, new Box2D.DefaultWorldPool());
 
             // Tell the browser to call the Update method
-            window.requestAnimationFrame(this.Update);
+            window.requestAnimationFrame(this.Update.bind(this));
 
             // Hook the browser resize event and react accordingly
-            //window.onresize = this.WindowResized.bind(this);
             window.onresize = this.WindowResized.bind(this);
 
-            // We need to call the constructor on input classes to initilize values, but after that all calls are static.
-            //Keyboard keyboard = new Keyboard();
-            //Mouse mouse = new Mouse();
+            // We need to initialize values on input classes
+            Keyboard.Initialize();
+            Mouse.Initialize();
             //Touch touch = new Touch();
         }
 
@@ -72,7 +69,7 @@
          * Adds the given GameObject to the Scene.
          * @param {Vapor.GameObject} gameObject The GameObject to add.
          */
-        AddGameObject(gameObject: GameObject) {
+        public AddGameObject(gameObject: GameObject) {
             gameObject.scene = this;
 
             for (var i = 0; i < gameObject.components.length; i++) {
@@ -91,14 +88,14 @@
         /**
          * Removes the given [GameObject] from the [Scene].
          */
-        RemoveGameObject(gameObject: GameObject) {
-            //this.gameObjects.remove(gameObject);
+        public RemoveGameObject(gameObject: GameObject) {
+            this.gameObjects.remove(gameObject);
         }
 
         /**
          * Clears all [GameObject]s out of the [Scene].
          */
-        Clear() {
+        public Clear() {
             this.gameObjects.length = 0;
             //world = new Box2D.World(gravity, true, new Box2D.DefaultWorldPool());
         }
@@ -106,11 +103,9 @@
         /**
          * @private
          */
-        Update(time: number) {
+        public Update(time: number) {
             if (!this.paused) {
-                //window.console.log("Scene Update");
-
-                //Time.Update();
+                Time.Update();
 
                 //world.step(1 / 60, 10, 10);
                 //world.clearForces();
@@ -121,21 +116,21 @@
                 }
 
                 // Update all of the Input
-                //Keyboard.Update();
-                //Mouse.Update();
+                Keyboard.Update();
+                Mouse.Update();
                 //Touch.Update();
 
                 this.Render();
 
                 // Tell the browser to call the Update method
-                window.requestAnimationFrame(this.Update);
+                window.requestAnimationFrame(this.Update.bind(this));
             }
         }
 
         /**
          * @private
          */
-        Render() {
+        public Render() {
             //gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
             ////gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -166,7 +161,7 @@
         /**
          * @private
          */
-        WindowResized(event: UIEvent) {
+        private WindowResized(event: UIEvent) {
             //window.console.log("Scene - Window Resized");
 
             this.canvas.Resize();
