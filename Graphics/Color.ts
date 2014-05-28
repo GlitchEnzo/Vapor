@@ -1,4 +1,6 @@
-﻿module Vapor {
+﻿/// <reference path="../Math/Vector4.ts" />
+
+module Vapor {
     export class Color {
         /**
          * Creates a new Color from the given integers.

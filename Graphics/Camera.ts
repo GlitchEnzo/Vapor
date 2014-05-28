@@ -32,7 +32,7 @@
         /**
          * The current projection Matrix of the Camera.
          */
-        projectionMatrix: Matrix;
+        projectionMatrix: Matrix = new Matrix();
 
         constructor() {
             super("Camera");
@@ -42,8 +42,10 @@
             //       Must do it in Awake...
 
             this.aspect = gl.canvas.width / gl.canvas.height;
-            this.projectionMatrix = makePerspectiveMatrix(radians(this.fieldOfView), this.aspect, this.nearClipPlane, this.farClipPlane);
+            this.projectionMatrix.SetPerspectiveMatrix(MathHelper.ToRadians(this.fieldOfView), this.aspect, this.nearClipPlane, this.farClipPlane);
         }
+
+        
 
         /**
          * @private
@@ -98,7 +100,7 @@
          */
         public OnWindowResized(event: Event) {
             this.aspect = gl.canvas.width / gl.canvas.height;
-            this.projectionMatrix = makePerspectiveMatrix(radians(fieldOfView), aspect, nearClipPlane, farClipPlane);
+            this.projectionMatrix.SetPerspectiveMatrix(MathHelper.ToRadians(this.fieldOfView), this.aspect, this.nearClipPlane, this.farClipPlane);
         }
 
         public ScreenToWorld(screenPoint: Vector3, z: number = 0.0): Vector3 {
@@ -118,18 +120,18 @@
             //screenSpace = transform.modelMatrix * screenSpace;
 
             var pickWorld: Vector3 = new Vector3();
-            unproject(projectionMatrix * transform.modelMatrix,
-                0.0, window.innerWidth,
-                0.0, window.innerHeight,
-                screenPoint.X, screenPoint.Y, z,
-                pickWorld);
+            Matrix.Unproject(Matrix.Multiply(this.projectionMatrix, this.transform.modelMatrix),
+                            0.0, window.innerWidth,
+                            0.0, window.innerHeight,
+                            screenPoint.X, screenPoint.Y, z,
+                            pickWorld);
 
             //if (!unproject(projectionMatrix * transform.modelMatrix, 
             //               0.0, window.innerWidth,
             //               0.0, window.innerHeight,
             //               screenPoint.x, screenPoint.y, z,
             //               pickWorld))
-            //window.console.log("Unproject failed!");
+            //console.log("Unproject failed!");
 
             // reverse the y value
             pickWorld[1] = -pickWorld[1];
@@ -139,7 +141,7 @@
 
         public WorldToScreen(worldPoint: Vector3): Vector3 {
             var screenPoint: Vector3 = Vector3.Copy(worldPoint);
-            screenPoint.applyProjection(projectionMatrix * transform.modelMatrix);
+            screenPoint.ApplyProjection(Matrix.Multiply(this.projectionMatrix, this.transform.modelMatrix));
 
             // Now:
             // (-1, 1)  (1, 1)
@@ -157,7 +159,7 @@
             screenPoint.X *= window.innerWidth;
             screenPoint.Y *= window.innerHeight;
 
-            //window.console.log(screenPoint.toString());
+            //console.log(screenPoint.toString());
 
             return screenPoint;
         }

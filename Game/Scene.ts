@@ -15,7 +15,7 @@
          * The list of Camera Components in the Scene. (Don't add to this list!  
          * Add the GameObject containing the Camera to Scene.gameObjects.)
          */
-        //cameras: Array<Camera> = new Array<Camera>();
+        cameras: Array<Camera> = new Array<Camera>();
 
         /**
          * True if the game is paused.
@@ -25,9 +25,9 @@
         /**
          * Gets the first camera in the scene.
          */
-        //public get Camera(): Camera {
-        //    return cameras[0];
-        //}
+        public get Camera(): Camera {
+            return this.cameras[0];
+        }
 
         /**
          * The [Canvas] used to render the Scene.
@@ -73,9 +73,9 @@
 
             for (var i = 0; i < gameObject.components.length; i++) {
                 // Check if gameObject contains Camera component.  Add to camera list if it does.
-                //if (gameObject.components[i] instanceof Camera) {
-                //    this.cameras.add(gameObject.components[i]);
-                //}
+                if (gameObject.components[i] instanceof Camera) {
+                    this.cameras.push(<Camera>gameObject.components[i]);
+                }
                 // TODO: Check if gameObject contains Light component.  Add to light list if it does.
             }
 
@@ -131,16 +131,13 @@
          */
         public Render() {
             gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-            ////gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-            //// Loop through every Camera
-            //for (var i = 0; i < this.cameras.length; i++) {
-            //    this.cameras[i].Clear();
+            // Loop through every Camera
+            for (var i = 0; i < this.cameras.length; i++) {
+                this.cameras[i].Clear();
 
-            //    // TODO: Perform frustum culling on each camera
-            //    // TODO: Only draw the objects visible in each camera
-
-            //    //console.log(this.cameras[i].transform.modelMatrix);
+            // TODO: Perform frustum culling on each camera
+            // TODO: Only draw the objects visible in each camera
 
             //    // Loop through every GameObject
             //    for (var j = 0; j < this.gameObjects.length; j++) {
@@ -154,7 +151,8 @@
 
             //        this.gameObjects[j].Render();
             //    }
-            //}
+
+            }
         }
 
         /**

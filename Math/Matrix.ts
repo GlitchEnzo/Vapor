@@ -53,6 +53,28 @@
             this.data[15] = 1;
         }
 
+        public SetZero() {
+            this.data[0] = 0;
+            this.data[1] = 0;
+            this.data[2] = 0;
+            this.data[3] = 0;
+
+            this.data[4] = 0;
+            this.data[5] = 0;
+            this.data[6] = 0;
+            this.data[7] = 0;
+
+            this.data[8] = 0;
+            this.data[9] = 0;
+            this.data[10] = 0;
+            this.data[11] = 0;
+
+            this.data[12] = 0;
+            this.data[13] = 0;
+            this.data[14] = 0;
+            this.data[15] = 0;
+        }
+
         public static Copy(other: Matrix) {
             var copy = new Matrix();
             copy.data[0] = other.data[0];
@@ -320,6 +342,167 @@
             this.data[13] = -(y0 * eyex + y1 * eyey + y2 * eyez);
             this.data[14] = -(z0 * eyex + z1 * eyey + z2 * eyez);
             this.data[15] = 1;
+        }
+
+        /**
+         * Constructs an OpenGL perspective projection matrix in this Matrix.
+         *
+         * [fovYRadians] specifies the field of view angle, in radians, in the y direction.
+         * [aspectRatio] specifies the aspect ratio that determines the field of view in the x direction.
+         *  The aspect ratio of x (width) to y (height).
+         * [zNear] specifies the distance from the viewer to the near plane (always positive).
+         * [zFar] specifies the distance from the viewer to the far plane (always positive).
+         */
+        public SetPerspectiveMatrix(fovYRadians: number, aspectRatio: number, zNear: number, zFar: number) {
+          var height = Math.tan(fovYRadians * 0.5) * zNear;
+          var width = height * aspectRatio;
+          this.SetFrustumMatrix(-width, width, -height, height, zNear, zFar);
+        }
+
+        /**
+         * Constructs an OpenGL perspective projection matrix in this Matrix.
+         *
+         * [left], [right] specify the coordinates for the left and right vertical clipping planes.
+         * [bottom], [top] specify the coordinates for the bottom and top horizontal clipping planes.
+         * [near], [far] specify the coordinates to the near and far depth clipping planes.
+         */
+        public SetFrustumMatrix(left: number, right: number, bottom: number, top: number, near: number, far: number) {
+            var two_near = 2.0 * near;
+            var right_minus_left = right - left;
+            var top_minus_bottom = top - bottom;
+            var far_minus_near = far - near;
+            this.SetZero();
+
+            //[row, column] = [column * 4 + row]
+            this.data[0] = two_near / right_minus_left; //[0, 0]
+            this.data[5] = two_near / top_minus_bottom; //[1, 1]
+            this.data[8] = (right + left) / right_minus_left; //[0, 2]
+            this.data[9] = (top + bottom) / top_minus_bottom; //[1, 2]
+            this.data[10] = -(far + near) / far_minus_near; //[2, 2]
+            this.data[11] = -1.0; //[3, 2]
+            this.data[14] = -(two_near * far) / far_minus_near; //[2, 3]
+        }
+
+        /**
+         * On success, Sets [pickWorld] to be the world space position of
+         * the screen space [pickX], [pickY], and [pickZ].
+         *
+         * The viewport is specified by ([viewportX], [viewportWidth]) and
+         * ([viewportY], [viewportHeight]).
+         *
+         * [cameraMatrix] includes both the projection and view transforms.
+         *
+         * [pickZ] is typically either 0.0 (near plane) or 1.0 (far plane).
+         *
+         * Returns false on error, for example, the mouse is not in the viewport
+         *
+         */
+        public static Unproject(cameraMatrix: Matrix, viewportX: number, viewportWidth: number,
+                                viewportY: number, viewportHeight: number,
+                                pickX: number, pickY: number, pickZ: number, pickWorld: Vector3): boolean {
+            pickX = (pickX - viewportX);
+            pickY = (pickY - viewportY);
+            pickX = (2.0 * pickX / viewportWidth) - 1.0;
+            pickY = (2.0 * pickY / viewportHeight) - 1.0;
+            pickZ = (2.0 * pickZ) - 1.0;
+
+            // Check if pick point is inside unit cube
+            if (pickX < -1.0 || pickY < -1.0 || pickX > 1.0 || pickY > 1.0 ||
+                pickZ < -1.0 || pickZ > 1.0) {
+                return false;
+            }
+
+            // Copy camera matrix.
+            var invertedCameraMatrix = Matrix.Copy(cameraMatrix);
+
+            // Invert the camera matrix.
+            invertedCameraMatrix.Invert();
+
+            // Determine intersection point.
+            var v = new Vector4(pickX, pickY, pickZ, 1.0);
+            invertedCameraMatrix.Transform(v);
+            if (v.W == 0.0) {
+                return false;
+            }
+
+            var invW = 1.0 / v.W;
+            pickWorld.X = v.X * invW;
+            pickWorld.Y = v.Y * invW;
+            pickWorld.Z = v.Z * invW;
+
+            return true;
+        }
+
+        public Invert(): number {
+            var a00 = this.data[0];
+            var a01 = this.data[1];
+            var a02 = this.data[2];
+            var a03 = this.data[3];
+            var a10 = this.data[4];
+            var a11 = this.data[5];
+            var a12 = this.data[6];
+            var a13 = this.data[7];
+            var a20 = this.data[8];
+            var a21 = this.data[9];
+            var a22 = this.data[10];
+            var a23 = this.data[11];
+            var a30 = this.data[12];
+            var a31 = this.data[13];
+            var a32 = this.data[14];
+            var a33 = this.data[15];
+
+            var b00 = a00 * a11 - a01 * a10;
+            var b01 = a00 * a12 - a02 * a10;
+            var b02 = a00 * a13 - a03 * a10;
+            var b03 = a01 * a12 - a02 * a11;
+            var b04 = a01 * a13 - a03 * a11;
+            var b05 = a02 * a13 - a03 * a12;
+            var b06 = a20 * a31 - a21 * a30;
+            var b07 = a20 * a32 - a22 * a30;
+            var b08 = a20 * a33 - a23 * a30;
+            var b09 = a21 * a32 - a22 * a31;
+            var b10 = a21 * a33 - a23 * a31;
+            var b11 = a22 * a33 - a23 * a32;
+            var det = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
+            if (det == 0.0) {
+                return det;
+            }
+            var invDet = 1.0 / det;
+
+            this.data[0] = (a11 * b11 - a12 * b10 + a13 * b09) * invDet;
+            this.data[1] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;
+            this.data[2] = (a31 * b05 - a32 * b04 + a33 * b03) * invDet;
+            this.data[3] = (-a21 * b05 + a22 * b04 - a23 * b03) * invDet;
+            this.data[4] = (-a10 * b11 + a12 * b08 - a13 * b07) * invDet;
+            this.data[5] = (a00 * b11 - a02 * b08 + a03 * b07) * invDet;
+            this.data[6] = (-a30 * b05 + a32 * b02 - a33 * b01) * invDet;
+            this.data[7] = (a20 * b05 - a22 * b02 + a23 * b01) * invDet;
+            this.data[8] = (a10 * b10 - a11 * b08 + a13 * b06) * invDet;
+            this.data[9] = (-a00 * b10 + a01 * b08 - a03 * b06) * invDet;
+            this.data[10] = (a30 * b04 - a31 * b02 + a33 * b00) * invDet;
+            this.data[11] = (-a20 * b04 + a21 * b02 - a23 * b00) * invDet;
+            this.data[12] = (-a10 * b09 + a11 * b07 - a12 * b06) * invDet;
+            this.data[13] = (a00 * b09 - a01 * b07 + a02 * b06) * invDet;
+            this.data[14] = (-a30 * b03 + a31 * b01 - a32 * b00) * invDet;
+            this.data[15] = (a20 * b03 - a21 * b01 + a22 * b00) * invDet;
+
+            return det;
+        }
+
+        /**
+         * Transforms the given Vector4 by this Matrix.
+         *
+         */
+        public Transform(arg: Vector4): Vector4 {
+            var x_ = (this.data[0] * arg.data[0]) + (this.data[4] * arg.data[1]) + (this.data[8] * arg.data[2]) + (this.data[12] * arg.data[3]);
+            var y_ = (this.data[1] * arg.data[0]) + (this.data[5] * arg.data[1]) + (this.data[9] * arg.data[2]) + (this.data[13] * arg.data[3]);
+            var z_ = (this.data[2] * arg.data[0]) + (this.data[6] * arg.data[1]) + (this.data[10] * arg.data[2]) + (this.data[14] * arg.data[3]);
+            var w_ = (this.data[3] * arg.data[0]) + (this.data[7] * arg.data[1]) + (this.data[11] * arg.data[2]) + (this.data[15] * arg.data[3]);
+            arg.X = x_;
+            arg.Y = y_;
+            arg.Z = z_;
+            arg.W = w_;
+            return arg;
         }
     }
 }

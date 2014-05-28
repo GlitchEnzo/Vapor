@@ -50,7 +50,7 @@ module Vapor {
         /**
         * The Camera attached to this GameObject, if there is one.
         */
-        //camera: Camera;
+        camera: Camera;
 
         constructor() {
             super("GameObject");
@@ -66,13 +66,13 @@ module Vapor {
         {
             component.gameObject = this;
         
-            //if (component is Renderer)
+            if (component instanceof Camera)
+            {
+                this.camera = <Camera>component;
+            }
+            //else if (component is Renderer)
             //{
             //    this.renderer = component;
-            //}
-            //else if (component is Camera)
-            //{
-            //    this.camera = component;
             //}
             //else if (component is Collider)
             //{
@@ -177,20 +177,19 @@ module Vapor {
 
         // ------ Static Creation Methods -------------------------------------------
 
-        ///**
-        // * Creates a GameObject with a Camera Behavior already attached.
-        // * @returns {Vapor.GameObject} A new GameObject with a Camera.
-        // */
-        //static GameObject CreateCamera()
-        //{
-        //    var cameraObject = new GameObject();
-        //    cameraObject.name = "Camera";
+        /**
+         * Creates a GameObject with a Camera Behavior already attached.
+         * @returns {Vapor.GameObject} A new GameObject with a Camera.
+         */
+        public static CreateCamera(): GameObject {
+            var cameraObject = new GameObject();
+            cameraObject.Name = "Camera";
 
-        //    var camera = new Camera();
-        //    cameraObject.AddComponent(camera);
+            var camera = new Camera();
+            cameraObject.AddComponent(camera);
 
-        //    return cameraObject;
-        //}
+            return cameraObject;
+        }
 
         ///**
         // * Creates a GameObject with a triangle Mesh and a MeshRenderer Behavior already attached.

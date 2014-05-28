@@ -1,15 +1,23 @@
 ﻿module Vapor {
-    class FileDownloader {
+    export class FileDownloader {
         /**
          * Download the file at the given URL.  
          * It defaults to download sychronously.
          * You can optionally provide a callback function which forces it to download asychronously.
          * The callback is in the form: void Callback(ProgressEvent event)
          */
-        public static Download(url: string, callback: (event: ProgressEvent) => any): XMLHttpRequest {
+        public static Download(url: string, callback?: (event: ProgressEvent) => any): XMLHttpRequest {
             var request: XMLHttpRequest = new XMLHttpRequest();
 
-            if (callback == null) {
+            if (callback) { // asynchronous request
+                //console.log("Sending asynchronous request");
+
+                // the callback is defined so send an asynchronous request
+                request.open('GET', url, true);
+                request.onreadystatechange = callback;
+                request.send();
+            }
+            else {
                 //console.log("Sending synchronous request");
 
                 try {
@@ -28,15 +36,6 @@
                 else {
                     console.log("FileDownloader Error! " + request.status.toString() + " " + request.statusText);
                 }
-            }
-            else // asynchronous request
-            {
-                //console.log("Sending asynchronous request");
-
-                // the callback is defined so send an asynchronous request
-                request.open('GET', url, true);
-                request.onreadystatechange = callback;
-                request.send();
             }
 
             return request;

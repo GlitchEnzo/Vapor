@@ -76,5 +76,18 @@
             this.data[1] -= other.data[1];
             this.data[2] -= other.data[2];
         }
+
+        /// Projects [this] using the projection matrix [arg]
+        public ApplyProjection(arg: Matrix): Vector3 {
+            var _x = this.data[0];
+            var _y = this.data[1];
+            var _z = this.data[2];
+
+            var d =  1.0 / (arg.data[3] * _x + arg.data[7] * _y + arg.data[11] * _z + arg.data[15]);
+            this.data[0] = (arg.data[0] * _x + arg.data[4] * _y + arg.data[8] * _z + arg.data[12]) * d;
+            this.data[1] = (arg.data[1] * _x + arg.data[5] * _y + arg.data[9] * _z + arg.data[13]) * d;
+            this.data[2] = (arg.data[2] * _x + arg.data[6] * _y + arg.data[10] * _z + arg.data[14]) * d;
+            return this;
+        }
     }
 }
