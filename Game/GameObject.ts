@@ -35,7 +35,7 @@ module Vapor {
         /**
          * The Renderer attached to this GameObject, if there is one.
          */
-        //renderer: Renderer;
+        renderer: Renderer;
 
         /**
          * The Collider attached to this GameObject, if there is one.
@@ -70,10 +70,10 @@ module Vapor {
             {
                 this.camera = <Camera>component;
             }
-            //else if (component is Renderer)
-            //{
-            //    this.renderer = component;
-            //}
+            else if (component instanceof Renderer)
+            {
+                this.renderer = <Renderer>component;
+            }
             //else if (component is Collider)
             //{
             //    this.collider = component;
@@ -191,21 +191,20 @@ module Vapor {
             return cameraObject;
         }
 
-        ///**
-        // * Creates a GameObject with a triangle Mesh and a MeshRenderer Behavior already attached.
-        // * @returns {Vapor.GameObject} A new GameObject with a triangle Mesh.
-        // */
-        //static GameObject CreateTriangle()
-        //{
-        //    var triangleObject = new GameObject();
-        //    triangleObject.name = "Triangle";
+        /**
+         * Creates a GameObject with a triangle Mesh and a MeshRenderer Behavior already attached.
+         * @returns {Vapor.GameObject} A new GameObject with a triangle Mesh.
+         */
+        public static CreateTriangle(): GameObject {
+            var triangleObject = new GameObject();
+            triangleObject.Name = "Triangle";
 
-        //    var meshRenderer = new MeshRenderer();
-        //    meshRenderer.mesh = Mesh.CreateTriangle();
-        //    triangleObject.AddComponent(meshRenderer);
+            var meshRenderer = new MeshRenderer();
+            meshRenderer.mesh = Mesh.CreateTriangle();
+            triangleObject.AddComponent(meshRenderer);
 
-        //    return triangleObject;
-        //}
+            return triangleObject;
+        }
 
         ///**
         // * Creates a GameObject with a quad Mesh and a MeshRenderer Behavior already attached.

@@ -136,21 +136,21 @@
             for (var i = 0; i < this.cameras.length; i++) {
                 this.cameras[i].Clear();
 
-            // TODO: Perform frustum culling on each camera
-            // TODO: Only draw the objects visible in each camera
+                // TODO: Perform frustum culling on each camera
+                // TODO: Only draw the objects visible in each camera
 
-            //    // Loop through every GameObject
-            //    for (var j = 0; j < this.gameObjects.length; j++) {
-            //        // Set the view & projection matrix on each renderer
-            //        if (this.gameObjects[j].renderer != null) {
-            //            Matrix4 viewMatrix = new Matrix4.copy(this.cameras[i].transform.modelMatrix);
-            //            viewMatrix.invert();
-            //            this.gameObjects[j].renderer.material.SetMatrix("uViewMatrix", viewMatrix);
-            //            this.gameObjects[j].renderer.material.SetMatrix("uProjectionMatrix", this.cameras[i].projectionMatrix);
-            //        }
+                // Loop through every GameObject
+                for (var j = 0; j < this.gameObjects.length; j++) {
+                    // Set the view & projection matrix on each renderer
+                    if (this.gameObjects[j].renderer) {
+                        var viewMatrix = Matrix.Copy(this.cameras[i].transform.modelMatrix);
+                        viewMatrix.Invert();
+                        this.gameObjects[j].renderer.material.SetMatrix("uViewMatrix", viewMatrix);
+                        this.gameObjects[j].renderer.material.SetMatrix("uProjectionMatrix", this.cameras[i].projectionMatrix);
+                    }
 
-            //        this.gameObjects[j].Render();
-            //    }
+                    this.gameObjects[j].Render();
+                }
 
             }
         }
@@ -159,13 +159,13 @@
          * @private
          */
         private WindowResized(event: UIEvent) {
-            //window.console.log("Scene - Window Resized");
+            console.log("Scene - Window Resized");
 
             this.canvas.Resize();
 
-            //for (var i = 0; i < this.cameras.length; i++) {
-            //    this.cameras[i].OnWindowResized(event);
-            //}
+            for (var i = 0; i < this.cameras.length; i++) {
+                this.cameras[i].OnWindowResized(event);
+            }
         }
     }
 }
