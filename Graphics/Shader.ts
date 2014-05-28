@@ -18,6 +18,9 @@
         public textureCoordAttribute: number;
         public vertexNormalAttribute: number;
 
+        private static vertexShaderPreprocessor: string = "VERTEX_SHADER";
+        private static pixelShaderPreprocessor: string = "FRAGMENT_SHADER";
+
         //    Shader.Copy(Shader other)
         //    {
         //        
@@ -61,7 +64,7 @@
          * @param {string} [filepath] The current filepath to work from. (Used for including other shader code.)
          * @returns {Vapor.Shader} The newly created Shader.
          */
-        public static FromSource(shaderSource: string, filepath: string): Shader {
+        public static FromSource(shaderSource: string, filepath?: string): Shader {
             var shader = new Shader();
 
             shaderSource = Shader.PreprocessSource(shaderSource, filepath);
@@ -75,7 +78,7 @@
             gl.linkProgram(shader.program);
 
             if (!gl.getProgramParameter(shader.program, WebGLRenderingContext.LINK_STATUS)) {
-                window.console.log("Link error! Could not initialise shaders.");
+                console.log("Link error! Could not initialise shaders.");
             }
 
             // setup the default attributes
@@ -128,38 +131,43 @@
           * @private
           * Process the shader source and pull in the include code
         */
-        private static PreprocessSource(shaderSource: string, filepath: string): string {
+        private static PreprocessSource(shaderSource: string, filepath?: string): string {
             console.log("Preprocessing shader source...");
 
             var relativePath = "";
-            if (filepath != null) {
+            if (filepath) {
                 relativePath = filepath.substring(0, filepath.lastIndexOf("/") + 1);
             }
 
             // \s* = any whitespace before the #include (0 or more spaces)
-            // \s+ = any whitespace after the #include (1 or more spaces)
-            // .* = any non-whitespace characters (1 or more)
-            var findIncludes = new RegExp("r'\s*#include\s+\".+\"'");
+            // #include = #include
+            // \s+ = any whitespace after the #include, but before the first quotation mark (1 or more spaces)
+            // \" = first quotation mark
+            // .+  = any non-whitespace characters (1 or more)
+            // \" = second quotation mark
+            var findIncludes = new RegExp('\\s*#include\\s+\\".+\\"');
             //var matches = findIncludes.allMatches(shaderSource);
             var matches = findIncludes.exec(shaderSource);
 
-            //console.log("Found matches = " + matches.length.toString());
-            var stripIncludes = new RegExp("r'\s*#include\s+\"'", "g"); //g is a flag that allows replacing ALL instances in a string
-            var stripEnd = new RegExp("r'\"'", "g");
-            //for (var match in matches) {
-            for (var i = 0; i < matches.length; i++) {
-                //console.log("Match = " + match.group(0));
-                var includeFile: string = matches[i].replace(stripIncludes, "");
-                includeFile = includeFile.replace(stripEnd, "");
+            if (matches) {
+                //console.log("Found matches = " + matches.length.toString());
+                var stripIncludes = new RegExp('\\s*#include\\s+\\"', "g"); //g is a flag that allows replacing ALL instances in a string
+                var stripEnd = new RegExp('\\"', "g");
 
-                console.log("Including shader = " + includeFile);
+                for (var i = 0; i < matches.length; i++) {
+                    //console.log("Match = " + matches[i]);
+                    var includeFile: string = matches[i].replace(stripIncludes, "");
+                    includeFile = includeFile.replace(stripEnd, "");
 
-                var request = FileDownloader.Download(relativePath + includeFile);
+                    console.log("Including shader = " + includeFile);
 
-                if (request.status != 200)
-                    window.console.log("Could not load shader include! " + includeFile);
+                    var request = FileDownloader.Download(relativePath + includeFile);
 
-                shaderSource = shaderSource.replace(matches[i], request.responseText + "\n");
+                    if (request.status != 200)
+                        console.log("Could not load shader include! " + includeFile);
+
+                    shaderSource = shaderSource.replace(matches[i], request.responseText + "\n");
+                }
             }
 
             //console.log(shaderSource);
@@ -171,20 +179,21 @@
             @private
         */
         private static CompileShader(shaderType: ShaderType, source: string): WebGLShader {
-            console.log("Compiling " + shaderType);
+            var preprocessor: string = shaderType == ShaderType.VertexShader ? Shader.vertexShaderPreprocessor : Shader.pixelShaderPreprocessor;
+            console.log("Compiling " + preprocessor);
 
             var type = WebGLRenderingContext.VERTEX_SHADER;
             if (shaderType == ShaderType.FragmentShader)
                 type = WebGLRenderingContext.FRAGMENT_SHADER;
 
             var shaderObject = gl.createShader(type);
-            source = '#define ' + shaderType + '\n' + source;
+            source = '#define ' + preprocessor + '\n' + source;
 
             gl.shaderSource(shaderObject, source);
             gl.compileShader(shaderObject);
 
             if (!gl.getShaderParameter(shaderObject, WebGLRenderingContext.COMPILE_STATUS)) {
-                window.console.log("Shader compilation error: " + shaderType + " - " + gl.getShaderInfoLog(shaderObject));
+                console.log("Shader compilation error: " + preprocessor + " - " + gl.getShaderInfoLog(shaderObject));
             }
 
             return shaderObject;

@@ -4,26 +4,32 @@
      * @class Represents a Material
      * @param {Vapor.Shader} shader The backing shader that this Material uses.
      */
-    export class Material {
+    export class Material extends VaporObject {
         public shader: Shader;
         //??? textures = [];
         public textureCount: number = 0;
 
+        // TODO: Switch to Map objects once more browsers support them by default.  Chrome needs to have a flag enabled.
+
         /**
          * A cache of variable locations in the shader to optimize rendering.
          */
-        private cache: Map<String, WebGLUniformLocation>;
+        //private cache: Map<String, WebGLUniformLocation>;
+        private cache: { [index: string]: WebGLUniformLocation; } = {};
 
         /**
          * A map of texture indices.
          */
-        private textureIndices: Map<String, number>;
+        //private textureIndices: Map<String, number>;
+        private textureIndices: { [index: string]: number; } = {};
 
-        Material(shader: Shader) {
+        constructor(shader: Shader) {
+            super("Material");
+
             this.shader = shader;
             this.textureCount = 0;
-            this.cache = new Map<String, WebGLUniformLocation>();
-            this.textureIndices = new Map<String, number>();
+            //this.cache = new Map<String, WebGLUniformLocation>();
+            //this.textureIndices = new Map<String, number>();
             this.Use();
         }
 
@@ -87,7 +93,7 @@
             this.Use();
 
             // cache the location of the variable for faster access
-            if (!this.cache.has(name))
+            if (!this.cache[name])
                 this.cache[name] = gl.getUniformLocation(this.shader.program, name);
 
             // (location, transpose, value)
@@ -108,7 +114,7 @@
             this.Use();
 
             // cache the location of the variable for faster access
-            if (!this.cache.has(name))
+            if (!this.cache[name])
                 this.cache[name] = gl.getUniformLocation(this.shader.program, name);
 
             // (location, value)
@@ -129,7 +135,7 @@
             this.Use();
 
             // cache the location of the variable for faster access
-            if (!this.cache.has(name)) {
+            if (!this.cache[name]) {
                 if (this.textureCount >= 31) {
                     console.log("The maximum number of textures (32) is already bound!");
                     return;

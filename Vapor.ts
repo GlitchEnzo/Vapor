@@ -51,6 +51,9 @@ window.onload = () => {
 
     var scene = new Vapor.Scene();
 
+    var shader = Vapor.Shader.FromFile("../Shaders/white.glsl");
+    var material = new Vapor.Material(shader);
+
     var camera = Vapor.GameObject.CreateCamera();
     camera.transform.position = new Vapor.Vector3(0.0, 0.0, -7.0);
     scene.AddGameObject(camera);
