@@ -222,36 +222,34 @@ module Vapor {
             return quadObject;
         }
 
-        ///**
-        // * Creates a GameObject with a line Mesh and a MeshRenderer Behavior already attached.
-        // * @returns {Vapor.GameObject} A new GameObject with a line Mesh.
-        // */
-        //static GameObject CreateLine(List < Vector3 > points, [double width = 0.1])
-        //{
-        //    var lineObject = new GameObject();
-        //    lineObject.name = "Line";
+        /**
+         * Creates a GameObject with a line Mesh and a MeshRenderer Behavior already attached.
+         * @returns {Vapor.GameObject} A new GameObject with a line Mesh.
+         */
+        public static CreateLine(points: Array<Vector3>, width: number = 0.1): GameObject  {
+            var lineObject = new GameObject();
+            lineObject.Name = "Line";
 
-        //    var meshRenderer = new MeshRenderer();
-        //    meshRenderer.mesh = Mesh.CreateLine(points, width);
-        //    lineObject.AddComponent(meshRenderer);
+            var meshRenderer = new MeshRenderer();
+            meshRenderer.mesh = Mesh.CreateLine(points, width);
+            lineObject.AddComponent(meshRenderer);
 
-        //    return lineObject;
-        //}
+            return lineObject;
+        }
 
-        ///**
-        // * Creates a GameObject with a circle Mesh and a MeshRenderer Behavior already attached.
-        // * @returns {Vapor.GameObject} A new GameObject with a quad Mesh.
-        // */
-        //static GameObject CreateCircle([double radius = 1.0, int segments = 15, double startAngle = 0.0, double angularSize = Math.PI * 2.0])
-        //{
-        //    var circleObject = new GameObject();
-        //    circleObject.name = "Circle";
+        /**
+         * Creates a GameObject with a circle Mesh and a MeshRenderer Behavior already attached.
+         * @returns {Vapor.GameObject} A new GameObject with a quad Mesh.
+         */
+        public static CreateCircle(radius: number = 1.0, segments: number = 15, startAngle: number = 0.0, angularSize: number = Math.PI * 2.0): GameObject {
+            var circleObject = new GameObject();
+            circleObject.Name = "Circle";
 
-        //    var meshRenderer = new MeshRenderer();
-        //    meshRenderer.mesh = Mesh.CreateCircle(radius, segments, startAngle, angularSize);
-        //    circleObject.AddComponent(meshRenderer);
+            var meshRenderer = new MeshRenderer();
+            meshRenderer.mesh = Mesh.CreateCircle(radius, segments, startAngle, angularSize);
+            circleObject.AddComponent(meshRenderer);
 
-        //    return circleObject;
-        //}
+            return circleObject;
+        }
     }
 }

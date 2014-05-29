@@ -223,7 +223,7 @@
                 vertices.add(points[i].Z);
             }
 
-            mesh.vertices = new Float32Array(vertices);
+            mesh.Vertices = new Float32Array(vertices);
 
             //mesh.uv
             //mesh.normals = new Float32List.fromList([0.0, 0.0, 1.0]);
@@ -239,7 +239,7 @@
             }
 
             //mesh.triangles = new Uint16List.fromList([0, 1, 2, 1, 3, 2]);
-            mesh.triangles = new Uint16Array(triangles);
+            mesh.Triangles = new Uint16Array(triangles);
             //[0, 1, 2, 
             // 1, 3, 2]);
             //2, 3, 4,
@@ -286,13 +286,10 @@
                 triangles.add(0);
             }
 
-            mesh.vertices = this.CreateFloat32List3(vertices);
+            mesh.Vertices = this.CreateFloat32List3(vertices);
             //mesh.normals = normals;
-            mesh.uv = this.CreateFloat32List2(uvs);
-            mesh.triangles = new Uint16Array(triangles);
-
-            //mesh.RecalculateNormals();
-            //mesh.RecalculateBounds();
+            mesh.UV = this.CreateFloat32List2(uvs);
+            mesh.Triangles = new Uint16Array(triangles);
 
             return mesh;
         }
@@ -304,7 +301,6 @@
             var list = new Float32Array(vectorList.length * 3);
 
             var index = 0;
-            //for (Vector3 vector in vectorList) {
             for (var i = 0; i < vectorList.length; i++) {
                 list[index++] = vectorList[i].X;
                 list[index++] = vectorList[i].Y;
@@ -321,7 +317,6 @@
             var list = new Float32Array(vectorList.length * 2);
 
             var index = 0;
-            //for (Vector2 vector in vectorList) {
             for (var i = 0; i < vectorList.length; i++) {
                 list[index++] = vectorList[i].X;
                 list[index++] = vectorList[i].Y;
