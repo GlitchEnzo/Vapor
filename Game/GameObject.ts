@@ -206,21 +206,21 @@ module Vapor {
             return triangleObject;
         }
 
-        ///**
-        // * Creates a GameObject with a quad Mesh and a MeshRenderer Behavior already attached.
-        // * @returns {Vapor.GameObject} A new GameObject with a quad Mesh.
-        // */
-        //static GameObject CreateQuad()
-        //{
-        //    var quadObject = new GameObject();
-        //    quadObject.name = "Quad";
+        /**
+         * Creates a GameObject with a quad Mesh and a MeshRenderer Behavior already attached.
+         * @returns {Vapor.GameObject} A new GameObject with a quad Mesh.
+         */
+        public static CreateQuad(): GameObject
+        {
+            var quadObject = new GameObject();
+            quadObject.Name = "Quad";
 
-        //    var meshRenderer = new MeshRenderer();
-        //    meshRenderer.mesh = Mesh.CreateQuad();
-        //    quadObject.AddComponent(meshRenderer);
+            var meshRenderer = new MeshRenderer();
+            meshRenderer.mesh = Mesh.CreateQuad();
+            quadObject.AddComponent(meshRenderer);
 
-        //    return quadObject;
-        //}
+            return quadObject;
+        }
 
         ///**
         // * Creates a GameObject with a line Mesh and a MeshRenderer Behavior already attached.

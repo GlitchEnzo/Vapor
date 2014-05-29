@@ -16,7 +16,6 @@
          */
         public Update() {
             //console.log("Renderer Update");
-            //Vapor.Behavior.prototype.Update.call(this); // call super
         }
 
         /**
@@ -24,7 +23,6 @@
          */
         public Render() {
             //console.log("Renderer Draw");
-            //Vapor.Behavior.prototype.Draw.call(this); // call super
         }
     }
 }

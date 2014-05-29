@@ -15,6 +15,7 @@ module Vapor {
          * @private
          */
         public Render() {
+            //console.log("MeshRenderer Draw");
             this.material.Use();
             //this.material.SetMatrix("uModelViewMatrix", this.gameObject.transform.modelMatrix);
             this.material.SetMatrix("uModelMatrix", this.gameObject.transform.ScaledModelMatrix);

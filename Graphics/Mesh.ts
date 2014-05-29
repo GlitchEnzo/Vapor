@@ -95,12 +95,12 @@
 
             if (material.shader.usesTexCoords) {
                 if (this.uvBuffer != null) {
-                    //console.log("Setting tex coords " + material.shader.usesTexCoords);
+                    console.log("Setting tex coords");
                     gl.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, this.uvBuffer);
                     gl.vertexAttribPointer(material.shader.textureCoordAttribute, 2, WebGLRenderingContext.FLOAT, false, 0, 0);
                 }
                 else
-                    window.console.log("Shader (" + material.shader.filepath + ") expects texure coords, but the mesh (" + this.Name + ") doesn't have them.");
+                    console.log("Shader (" + material.shader.filepath + ") expects texure coords, but the mesh (" + this.Name + ") doesn't have them.");
             }
             //else
             //{
@@ -111,11 +111,12 @@
 
             if (material.shader.usesNormals) {
                 if (this.normalBuffer != null) {
+                    console.log("Setting normals");
                     gl.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, this.normalBuffer);
                     gl.vertexAttribPointer(material.shader.vertexNormalAttribute, 3, WebGLRenderingContext.FLOAT, false, 0, 0);
                 }
                 else
-                    window.console.log("Shader (" + material.shader.filepath + ") expects normals, but the mesh (" + this.Name + ") doesn't have them.");
+                    console.log("Shader (" + material.shader.filepath + ") expects normals, but the mesh (" + this.Name + ") doesn't have them.");
             }
 
             gl.bindBuffer(WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
@@ -139,19 +140,19 @@
             var mesh = new Mesh();
             mesh.Name = "Triangle";
 
-            mesh.vertices = new Float32Array([0.0, 0.5, 0.0,
-                -0.5, -0.5, 0.0,
-                0.5, -0.5, 0.0]);
+            mesh.Vertices = new Float32Array([0.0,  0.5, 0.0,
+                                             -0.5, -0.5, 0.0,
+                                              0.5, -0.5, 0.0]);
 
-            mesh.uv = new Float32Array([0.5, 1.0,
-                0.0, 0.0,
-                1.0, 0.0]);
+            mesh.UV = new Float32Array([0.5, 1.0,
+                                        0.0, 0.0,
+                                        1.0, 0.0]);
 
-            mesh.normals = new Float32Array([0.0, 0.0, 1.0,
-                0.0, 0.0, 1.0,
-                0.0, 0.0, 1.0]);
+            mesh.Normals = new Float32Array([0.0, 0.0, 1.0,
+                                             0.0, 0.0, 1.0,
+                                             0.0, 0.0, 1.0]);
 
-            mesh.triangles = new Uint16Array([0, 1, 2]);
+            mesh.Triangles = new Uint16Array([0, 1, 2]);
 
             return mesh;
         }
@@ -169,22 +170,22 @@
             var mesh = new Mesh();
             mesh.Name = "Quad";
 
-            mesh.vertices = new Float32Array([0.5, 0.5, 0.0,
+            mesh.Vertices = new Float32Array([0.5, 0.5, 0.0,
                 -0.5, 0.5, 0.0,
                 0.5, -0.5, 0.0,
                 -0.5, -0.5, 0.0]);
 
-            mesh.uv = new Float32Array([1.0, 1.0,
+            mesh.UV = new Float32Array([1.0, 1.0,
                 0.0, 1.0,
                 1.0, 0.0,
                 0.0, 0.0]);
 
-            mesh.normals = new Float32Array([0.0, 0.0, 1.0,
+            mesh.Normals = new Float32Array([0.0, 0.0, 1.0,
                 0.0, 0.0, 1.0,
                 0.0, 0.0, 1.0,
                 0.0, 0.0, 1.0]);
 
-            mesh.triangles = new Uint16Array([0, 1, 2, 1, 3, 2]);
+            mesh.Triangles = new Uint16Array([0, 1, 2, 1, 3, 2]);
 
             return mesh;
         }

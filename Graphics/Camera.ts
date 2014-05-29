@@ -60,21 +60,20 @@
          * @private
          */
         public Update() {
-            /*
-            var position = this.transform.position;
+            
+            //var position = this.transform.position;
         
-            if (Vapor.Input.GetKey(Vapor.Input.KeyCode.W))
-                position[2] += 1;
+            //if (Keyboard.GetKey(KeyCode.W))
+            //    position.Z += 1;
             
-            if (Vapor.Input.GetKey(Vapor.Input.KeyCode.S))
-                position[2] -= 1;
+            //if (Keyboard.GetKey(KeyCode.S))
+            //    position.Z -= 1;
             
-                if (Vapor.Input.GetKey(Vapor.Input.KeyCode.A))
-                position[0] += 1;
+            //if (Keyboard.GetKey(KeyCode.A))
+            //    position.X += 1;
             
-            if (Vapor.Input.GetKey(Vapor.Input.KeyCode.D))
-                position[0] -= 1;
-                */
+            //if (Keyboard.GetKey(KeyCode.D))
+            //    position.X -= 1;
 
             //this.transform.position = position;
 
@@ -134,7 +133,7 @@
             //console.log("Unproject failed!");
 
             // reverse the y value
-            pickWorld[1] = -pickWorld[1];
+            pickWorld.Y = -pickWorld.Y;
 
             return pickWorld;
         }

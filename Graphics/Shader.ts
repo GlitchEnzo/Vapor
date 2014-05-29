@@ -83,23 +83,17 @@
 
             // setup the default attributes
             shader.vertexPositionAttribute = gl.getAttribLocation(shader.program, "aVertexPosition");
-            //console.log("Pos attrib = " + shader.program.vertexPositionAttribute);
-            //gl.enableVertexAttribArray(shader.program.vertexPositionAttribute);
-
+            //console.log("Vertex Position attrib = " + shader.vertexPositionAttribute);
 
             shader.textureCoordAttribute = gl.getAttribLocation(shader.program, "aTextureCoord");
             if (shader.textureCoordAttribute != -1) {
                 //console.log("Uses Tex coords! - " + this.filepath);
-
-                //gl.enableVertexAttribArray(shader.program.textureCoordAttribute);
                 shader.usesTexCoords = true;
             }
 
             shader.vertexNormalAttribute = gl.getAttribLocation(shader.program, "aVertexNormal");
             if (shader.vertexNormalAttribute != -1) {
                 //console.log("Uses Normals! - " + this.filepath);
-
-                //gl.enableVertexAttribArray(shader.program.vertexNormalAttribute);
                 shader.usesNormals = true;
             }
 
@@ -180,7 +174,7 @@
         */
         private static CompileShader(shaderType: ShaderType, source: string): WebGLShader {
             var preprocessor: string = shaderType == ShaderType.VertexShader ? Shader.vertexShaderPreprocessor : Shader.pixelShaderPreprocessor;
-            console.log("Compiling " + preprocessor);
+            //console.log("Compiling " + preprocessor);
 
             var type = WebGLRenderingContext.VERTEX_SHADER;
             if (shaderType == ShaderType.FragmentShader)

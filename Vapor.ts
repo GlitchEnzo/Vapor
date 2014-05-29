@@ -55,6 +55,30 @@ window.onload = () => {
     var material = new Vapor.Material(shader);
 
     var camera = Vapor.GameObject.CreateCamera();
-    camera.transform.position = new Vapor.Vector3(0.0, 0.0, -7.0);
+    //camera.transform.position = new Vapor.Vector3(0.0, 0.0, -7.0);
+    camera.transform.position = new Vapor.Vector3(0.0, 0.0, 0.0);
+    //camera.camera.backgroundColor = Vapor.Color.SolidBlack;
     scene.AddGameObject(camera);
+
+    var triangle = Vapor.GameObject.CreateTriangle();
+    triangle.renderer.material = material;
+    triangle.transform.position = new Vapor.Vector3(-1.5, 0.0, 7.0);
+    scene.AddGameObject(triangle);
+
+    console.log(triangle.transform.modelMatrix);
+
+    console.log(WebGLRenderingContext.STATIC_DRAW);
+    console.log(gl.STATIC_DRAW);
+
+    /*
+    var paddle1 = Vapor.GameObject.CreateQuad();
+    //paddle1.transform.Scale = new Vapor.Vector3(1.0, 2.0, 1.0);
+    //Paddle paddle1Comp = new Paddle();
+    //paddle1.AddComponent(paddle1Comp);
+    paddle1.renderer.material = material;
+    //paddle1.transform.position = new Vapor.Vector3(3.5, 0.0, 0.0);
+    scene.AddGameObject(paddle1);
+    */
+
+    //console.log(paddle1.transform.modelMatrix);
 };

@@ -102,7 +102,7 @@
         /**
          * @private
          */
-        public Update(time: number) {
+        private Update(time: number) {
             if (!this.paused) {
                 Time.Update();
 
@@ -129,7 +129,7 @@
         /**
          * @private
          */
-        public Render() {
+        private Render() {
             gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
             // Loop through every Camera

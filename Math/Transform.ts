@@ -44,9 +44,9 @@
          * @property
          */
         public get position(): Vector3 {
-            return new Vector3(this.modelMatrix[12],
-                this.modelMatrix[13],
-                this.modelMatrix[14]);
+            return new Vector3(this.modelMatrix.data[12],
+                               this.modelMatrix.data[13],
+                               this.modelMatrix.data[14]);
         }
 
         public set position(value: Vector3) {
@@ -57,9 +57,9 @@
                 child.transform.position.Add(value);
             }
 
-            this.modelMatrix[12] = value[0];
-            this.modelMatrix[13] = value[1];
-            this.modelMatrix[14] = value[2];
+            this.modelMatrix.data[12] = value.data[0];
+            this.modelMatrix.data[13] = value.data[1];
+            this.modelMatrix.data[14] = value.data[2];
 
             // Change RigidBody position as well, if there is one
             //if (this.gameObject.rigidbody != null && this.gameObject.rigidbody.body != null) {
@@ -103,15 +103,15 @@
          * @name Vapor.Transform.prototype.right
          */
         public get right(): Vector3 {
-            return new Vector3(this.modelMatrix[0],
-                this.modelMatrix[1],
-                this.modelMatrix[2]);
+            return new Vector3(this.modelMatrix.data[0],
+                               this.modelMatrix.data[1],
+                               this.modelMatrix.data[2]);
         }
 
         public set right(value: Vector3) {
-            this.modelMatrix[0] = value[0];
-            this.modelMatrix[1] = value[1];
-            this.modelMatrix[2] = value[2];
+            this.modelMatrix.data[0] = value.data[0];
+            this.modelMatrix.data[1] = value.data[1];
+            this.modelMatrix.data[2] = value.data[2];
 
             // TODO: Recalc forward and up
         }
@@ -122,15 +122,15 @@
          * @field
          */
         public get up(): Vector3 {
-            return new Vector3(this.modelMatrix[4],
-                this.modelMatrix[5],
-                this.modelMatrix[6]);
+            return new Vector3(this.modelMatrix.data[4],
+                               this.modelMatrix.data[5],
+                               this.modelMatrix.data[6]);
         }
 
         public set up(value: Vector3) {
-            this.modelMatrix[4] = value[0];
-            this.modelMatrix[5] = value[1];
-            this.modelMatrix[6] = value[2];
+            this.modelMatrix.data[4] = value.data[0];
+            this.modelMatrix.data[5] = value.data[1];
+            this.modelMatrix.data[6] = value.data[2];
 
             // TODO: Recalc forward and right
         }
@@ -141,15 +141,15 @@
          * @field
          */
         public get forward(): Vector3 {
-            return new Vector3(-this.modelMatrix[8],
-                -this.modelMatrix[9],
-                -this.modelMatrix[10]);
+            return new Vector3(-this.modelMatrix.data[8],
+                               -this.modelMatrix.data[9],
+                               -this.modelMatrix.data[10]);
         }
 
         public set forward(value: Vector3) {
-            this.modelMatrix[8] = -value[0];
-            this.modelMatrix[9] = -value[1];
-            this.modelMatrix[10] = -value[2];
+            this.modelMatrix.data[8] = -value.data[0];
+            this.modelMatrix.data[9] = -value.data[1];
+            this.modelMatrix.data[10] = -value.data[2];
 
             // TODO: Recalc up and right
         }
