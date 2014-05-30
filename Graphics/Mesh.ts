@@ -95,7 +95,7 @@
 
             if (material.shader.usesTexCoords) {
                 if (this.uvBuffer != null) {
-                    console.log("Setting tex coords");
+                    //console.log("Setting tex coords");
                     gl.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, this.uvBuffer);
                     gl.vertexAttribPointer(material.shader.textureCoordAttribute, 2, WebGLRenderingContext.FLOAT, false, 0, 0);
                 }
@@ -111,7 +111,7 @@
 
             if (material.shader.usesNormals) {
                 if (this.normalBuffer != null) {
-                    console.log("Setting normals");
+                    //console.log("Setting normals");
                     gl.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, this.normalBuffer);
                     gl.vertexAttribPointer(material.shader.vertexNormalAttribute, 3, WebGLRenderingContext.FLOAT, false, 0, 0);
                 }
