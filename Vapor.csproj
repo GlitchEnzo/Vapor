@@ -41,6 +41,8 @@
     <TypeScriptCompile Include="Input\TouchData.ts" />
     <TypeScriptCompile Include="Input\TouchPhase.ts" />
     <TypeScriptCompile Include="Graphics\Color.ts" />
+    <TypeScriptCompile Include="Math\BoundingBox2D.ts" />
+    <TypeScriptCompile Include="Math\BoundingBox3D.ts" />
     <TypeScriptCompile Include="Math\MathHelper.ts" />
     <TypeScriptCompile Include="Math\Matrix.ts" />
     <TypeScriptCompile Include="Math\Quaternion.ts" />

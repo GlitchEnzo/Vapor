@@ -20,6 +20,8 @@
 /// <reference path="Input/TouchData.ts" />
 /// <reference path="Input/TouchPhase.ts" />
 
+/// <reference path="Math/BoundingBox2D.ts" />
+/// <reference path="Math/BoundingBox3D.ts" />
 /// <reference path="Math/MathHelper.ts" />
 /// <reference path="Math/Matrix.ts" />
 /// <reference path="Math/Quaternion.ts" />
