@@ -21,11 +21,53 @@
     <Content Include="index.html" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Game\Component.ts" />
+    <TypeScriptCompile Include="Game\GameObject.ts" />
+    <TypeScriptCompile Include="Game\Scene.ts" />
     <TypeScriptCompile Include="Game\VaporObject.ts" />
+    <TypeScriptCompile Include="Graphics\Camera.ts" />
+    <TypeScriptCompile Include="Graphics\Canvas.ts" />
+    <TypeScriptCompile Include="Graphics\Material.ts" />
+    <TypeScriptCompile Include="Graphics\Mesh.ts" />
+    <TypeScriptCompile Include="Graphics\MeshRenderer.ts" />
+    <TypeScriptCompile Include="Graphics\Renderer.ts" />
+    <TypeScriptCompile Include="Graphics\Shader.ts" />
+    <TypeScriptCompile Include="Graphics\ShaderType.ts" />
+    <TypeScriptCompile Include="Graphics\Texture2D.ts" />
+    <TypeScriptCompile Include="Input\Keyboard.ts" />
+    <TypeScriptCompile Include="Input\KeyCode.ts" />
+    <TypeScriptCompile Include="Input\Mouse.ts" />
+    <TypeScriptCompile Include="Input\Touch.ts" />
+    <TypeScriptCompile Include="Input\TouchData.ts" />
+    <TypeScriptCompile Include="Input\TouchPhase.ts" />
+    <TypeScriptCompile Include="Graphics\Color.ts" />
+    <TypeScriptCompile Include="Math\MathHelper.ts" />
+    <TypeScriptCompile Include="Math\Matrix.ts" />
+    <TypeScriptCompile Include="Math\Quaternion.ts" />
+    <TypeScriptCompile Include="Math\Transform.ts" />
+    <TypeScriptCompile Include="Math\Vector2.ts" />
+    <TypeScriptCompile Include="Math\Vector4.ts" />
+    <TypeScriptCompile Include="Utilities\ArrayExtensions.ts" />
+    <TypeScriptCompile Include="Utilities\Dictionary.ts" />
+    <TypeScriptCompile Include="Utilities\FileDownloader.ts" />
+    <TypeScriptCompile Include="Utilities\List.ts" />
+    <TypeScriptCompile Include="Utilities\Time.ts" />
     <TypeScriptCompile Include="Vapor.ts" />
     <TypeScriptCompile Include="Math\Vector3.ts" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="web.config" />
+    <Content Include="Shaders\colored.glsl" />
+    <Content Include="Shaders\common.glsl" />
+    <Content Include="Shaders\textured.glsl" />
+    <Content Include="Shaders\white.glsl" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -57,8 +99,9 @@
     <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
-    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <TypeScriptModuleKind>amd</TypeScriptModuleKind>
     <TypeScriptOutFile>Vapor.js</TypeScriptOutFile>
+    <TypeScriptGeneratesDeclarations>True</TypeScriptGeneratesDeclarations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TypeScriptTarget>ES5</TypeScriptTarget>
