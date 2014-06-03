@@ -17,10 +17,14 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Funeral.mp3" />
     <Content Include="Vapor.css" />
     <Content Include="index.html" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Audio\AudioManager.ts" />
+    <TypeScriptCompile Include="Audio\AudioSource.ts" />
+    <TypeScriptCompile Include="Audio\waa.d.ts" />
     <TypeScriptCompile Include="Game\Component.ts" />
     <TypeScriptCompile Include="Game\GameObject.ts" />
     <TypeScriptCompile Include="Game\Scene.ts" />

@@ -1,4 +1,7 @@
-﻿/// <reference path="Game/Component.ts" />
+﻿/// <reference path="Audio/AudioManager.ts" />
+/// <reference path="Audio/AudioSource.ts" />
+
+/// <reference path="Game/Component.ts" />
 /// <reference path="Game/GameObject.ts" />
 /// <reference path="Game/Scene.ts" />
 /// <reference path="Game/VaporObject.ts" />
@@ -15,6 +18,7 @@
 /// <reference path="Graphics/Texture2D.ts" />
 
 /// <reference path="Input/Keyboard.ts" />
+/// <reference path="Input/KeyCode.ts" />
 /// <reference path="Input/Mouse.ts" />
 /// <reference path="Input/Touch.ts" />
 /// <reference path="Input/TouchData.ts" />
@@ -40,25 +44,34 @@
 var gl: WebGLRenderingContext;
 
 window.onload = () => {
+    var audioManager = new Vapor.AudioManager();
+    //audioManager.LoadAudio("../Funeral.mp3", (buffer) => { });
+
+    //var audioSource = new Vapor.AudioSource(audioManager);
+    //audioSource.LoadAudio("../Funeral.mp3", (source) => { source.Play(); });
+
+    var audioSource = new Vapor.AudioSource.FromFile(audioManager, "../Funeral.mp3", (source) => { source.Play(); });
+
     var scene = new Vapor.Scene();
 
-    var shader = Vapor.Shader.FromFile("../Shaders/white.glsl");
-    var material = new Vapor.Material(shader);
+    Vapor.Shader.FromFile("../Shaders/white.glsl", (shader: Vapor.Shader) => {
+        var material = new Vapor.Material(shader);
 
-    var camera = Vapor.GameObject.CreateCamera();
-    camera.transform.position = new Vapor.Vector3(0.0, 0.0, -7.0);
-    camera.camera.backgroundColor = Vapor.Color.SolidBlack;
-    scene.AddGameObject(camera);
+        var camera = Vapor.GameObject.CreateCamera();
+        camera.transform.position = new Vapor.Vector3(0.0, 0.0, -7.0);
+        camera.camera.backgroundColor = Vapor.Color.SolidBlack;
+        scene.AddGameObject(camera);
 
-    var triangle = Vapor.GameObject.CreateTriangle();
-    triangle.renderer.material = material;
-    //triangle.transform.position = new Vapor.Vector3(-1.5, 0.0, 7.0);
-    triangle.transform.position = new Vapor.Vector3(-1.5, 0.0, 0.0);
-    scene.AddGameObject(triangle);
-    
-    var paddle1 = Vapor.GameObject.CreateQuad();
-    //paddle1.transform.Scale = new Vapor.Vector3(1.0, 2.0, 1.0);
-    paddle1.renderer.material = material;
-    paddle1.transform.position = new Vapor.Vector3(1.5, 0.0, 0.0);
-    scene.AddGameObject(paddle1);
+        var triangle = Vapor.GameObject.CreateTriangle();
+        triangle.renderer.material = material;
+        //triangle.transform.position = new Vapor.Vector3(-1.5, 0.0, 7.0);
+        triangle.transform.position = new Vapor.Vector3(-1.5, 0.0, 0.0);
+        scene.AddGameObject(triangle);
+
+        var paddle1 = Vapor.GameObject.CreateQuad();
+        //paddle1.transform.Scale = new Vapor.Vector3(1.0, 2.0, 1.0);
+        paddle1.renderer.material = material;
+        paddle1.transform.position = new Vapor.Vector3(1.5, 0.0, 0.0);
+        scene.AddGameObject(paddle1);
+    });
 };

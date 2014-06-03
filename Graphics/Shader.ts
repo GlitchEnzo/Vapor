@@ -38,14 +38,14 @@
          * @param {string} filepath The filepath of the shader to load.
          * @returns {Vapor.Shader} The newly created Shader.
          */
-        public static FromFile(filepath: string): Shader {
+        public static FromFile(filepath: string, callback: (shader: Shader) => any) {
             console.log("Loading shader = " + filepath.substring(filepath.lastIndexOf("/") + 1));
 
-            var request = FileDownloader.Download(filepath);
-
-            var shader = Shader.FromSource(request.responseText, filepath);
-            shader.filepath = filepath;
-            return shader;
+            FileDownloader.Download(filepath, (request: XMLHttpRequest) => {
+                var shader = Shader.FromSource(request.responseText, filepath);
+                shader.filepath = filepath;
+                callback(shader);
+            });            
         }
 
         /**
@@ -125,13 +125,11 @@
           * @private
           * Process the shader source and pull in the include code
         */
-        private static PreprocessSource(shaderSource: string, filepath?: string): string {
+        //private static PreprocessSource(shaderSource: string, filepath: string, callback: (sourceCode: string) => any): string {
+        private static PreprocessSource(shaderSource: string, filepath: string): string {
             console.log("Preprocessing shader source...");
 
-            var relativePath = "";
-            if (filepath) {
-                relativePath = filepath.substring(0, filepath.lastIndexOf("/") + 1);
-            }
+            var relativePath = filepath.substring(0, filepath.lastIndexOf("/") + 1);
 
             // \s* = any whitespace before the #include (0 or more spaces)
             // #include = #include
@@ -155,16 +153,15 @@
 
                     console.log("Including shader = " + includeFile);
 
-                    var request = FileDownloader.Download(relativePath + includeFile);
-
-                    if (request.status != 200)
-                        console.log("Could not load shader include! " + includeFile);
+                    var request = FileDownloader.DownloadSynchronous(relativePath + includeFile);
 
                     shaderSource = shaderSource.replace(matches[i], request.responseText + "\n");
+
+                    //FileDownloader.Download(relativePath + includeFile, (request: XMLHttpRequest) => {
+                    //    shaderSource = shaderSource.replace(matches[i], request.response + "\n");
+                    //});      
                 }
             }
-
-            //console.log(shaderSource);
 
             return shaderSource;
         }
