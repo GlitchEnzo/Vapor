@@ -37,7 +37,7 @@
         /**
          * The Box2D physics world.
          */
-        //Box2D.World world;// = new Box2D.World(new Vector2(0.0, 0.0), true, new Box2D.DefaultWorldPool());
+        world: Box2D.Dynamics.b2World;
 
         /**
          * The gravity vector used for Box2D.
@@ -50,7 +50,7 @@
             this.canvas = canvas;
             this.gravity = gravity;
 
-            //world = new Box2D.World(_gravity, true, new Box2D.DefaultWorldPool());
+            this.world = new Box2D.Dynamics.b2World(new Box2D.Common.Math.b2Vec2(gravity.X, gravity.Y), true);
 
             // Tell the browser to call the Update method
             window.requestAnimationFrame(this.Update.bind(this));
@@ -96,7 +96,7 @@
          */
         public Clear() {
             this.gameObjects.length = 0;
-            //world = new Box2D.World(gravity, true, new Box2D.DefaultWorldPool());
+            this.world = new Box2D.Dynamics.b2World(new Box2D.Common.Math.b2Vec2(this.gravity.X, this.gravity.Y), true);
         }
 
         /**
@@ -106,8 +106,8 @@
             if (!this.paused) {
                 Time.Update();
 
-                //world.step(1 / 60, 10, 10);
-                //world.clearForces();
+                this.world.Step(1 / 60, 10, 10);
+                this.world.ClearForces();
 
                 // Call Update on each GameObject
                 for (var i = 0; i < this.gameObjects.length; i++) {

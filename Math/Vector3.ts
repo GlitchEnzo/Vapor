@@ -23,6 +23,14 @@
             this.data[2] = value;
         }
 
+        get XY(): Vector2 {
+            return new Vector2(this.data[0], this.data[1]);
+        }
+        set XY(value: Vector2) {
+            this.data[0] = value.X;
+            this.data[1] = value.Y;
+        }
+
         /**
          * Creates a new instance of a Vector3 initialized to the given values or [0, 0, 0].
          * @constructor

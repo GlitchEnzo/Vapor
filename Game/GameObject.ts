@@ -40,12 +40,12 @@ module Vapor {
         /**
          * The Collider attached to this GameObject, if there is one.
          */
-        //collider: Collider;
+        collider: Collider;
 
         /**
          * The Box2D Body attached to this GameObject, if there is one.
          */
-        //rigidbody: RigidBody;
+        rigidbody: RigidBody;
 
         /**
         * The Camera attached to this GameObject, if there is one.
@@ -74,14 +74,14 @@ module Vapor {
             {
                 this.renderer = <Renderer>component;
             }
-            //else if (component is Collider)
-            //{
-            //    this.collider = component;
-            //}
-            //else if (component is RigidBody)
-            //{
-            //    this.rigidbody = component;
-            //}
+            else if (component instanceof RigidBody)
+            {
+                this.rigidbody = <RigidBody>component;
+            }
+            else if (component instanceof Collider)
+            {
+                this.collider = <Collider>component;
+            }
 
             this.components.push(component);
 
@@ -168,12 +168,12 @@ module Vapor {
             }
         }
 
-        //OnCollision(Box2D.Contact contact)
-        //{
-        //    for (var i = 0; i < this.components.length; i++) {
-        //        this.components[i].OnCollision(contact);
-        //    }
-        //}
+        OnCollision(contact: Box2D.Dynamics.Contacts.b2Contact)
+        {
+            for (var i = 0; i < this.components.length; i++) {
+                this.components[i].OnCollision(contact);
+            }
+        }
 
         // ------ Static Creation Methods -------------------------------------------
 

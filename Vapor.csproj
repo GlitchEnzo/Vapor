@@ -18,6 +18,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Funeral.mp3" />
+    <Content Include="Physics\Box2dWeb-2.1.a.3.js" />
     <Content Include="Vapor.css" />
     <Content Include="index.html" />
   </ItemGroup>
@@ -53,6 +54,12 @@
     <TypeScriptCompile Include="Math\Transform.ts" />
     <TypeScriptCompile Include="Math\Vector2.ts" />
     <TypeScriptCompile Include="Math\Vector4.ts" />
+    <TypeScriptCompile Include="Physics\box2dweb.d.ts" />
+    <TypeScriptCompile Include="Physics\BoxCollider.ts" />
+    <TypeScriptCompile Include="Physics\CircleCollider.ts" />
+    <TypeScriptCompile Include="Physics\Collider.ts" />
+    <TypeScriptCompile Include="Physics\RevoluteJoint.ts" />
+    <TypeScriptCompile Include="Physics\RigidBody.ts" />
     <TypeScriptCompile Include="Utilities\ArrayExtensions.ts" />
     <TypeScriptCompile Include="Utilities\Dictionary.ts" />
     <TypeScriptCompile Include="Utilities\FileDownloader.ts" />

@@ -59,6 +59,6 @@ module Vapor {
         /**
          * Called whenver collisions are detected via the physics engine (Box2D).
          */
-        //public OnCollision(contact: Box2D.Contact) { }
+        public OnCollision(contact: Box2D.Dynamics.Contacts.b2Contact) { }
     }
 }

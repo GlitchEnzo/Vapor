@@ -1,5 +1,6 @@
 ﻿/// <reference path="Audio/AudioManager.ts" />
 /// <reference path="Audio/AudioSource.ts" />
+/// <reference path="Audio/waa.d.ts" />
 
 /// <reference path="Game/Component.ts" />
 /// <reference path="Game/GameObject.ts" />
@@ -34,6 +35,12 @@
 /// <reference path="Math/Vector3.ts" />
 /// <reference path="Math/Vector4.ts" />
 
+/// <reference path="Physics/box2dweb.d.ts" />
+/// <reference path="Physics/BoxCollider.ts" />
+/// <reference path="Physics/CircleCollider.ts" />
+/// <reference path="Physics/Collider.ts" />
+/// <reference path="Physics/RigidBody.ts" />
+
 /// <reference path="Utilities/ArrayExtensions.ts" />
 /// <reference path="Utilities/FileDownloader.ts" />
 /// <reference path="Utilities/Time.ts" />
@@ -45,16 +52,11 @@ var gl: WebGLRenderingContext;
 
 window.onload = () => {
     var audioManager = new Vapor.AudioManager();
-    //audioManager.LoadAudio("../Funeral.mp3", (buffer) => { });
-
-    //var audioSource = new Vapor.AudioSource(audioManager);
-    //audioSource.LoadAudio("../Funeral.mp3", (source) => { source.Play(); });
-
-    var audioSource = new Vapor.AudioSource.FromFile(audioManager, "../Funeral.mp3", (source) => { source.Play(); });
+    var audioSource = new Vapor.AudioSource.FromFile(audioManager, "Funeral.mp3", (source) => { source.Play(); });
 
     var scene = new Vapor.Scene();
 
-    Vapor.Shader.FromFile("../Shaders/white.glsl", (shader: Vapor.Shader) => {
+    Vapor.Shader.FromFile("Shaders/white.glsl", (shader: Vapor.Shader) => {
         var material = new Vapor.Material(shader);
 
         var camera = Vapor.GameObject.CreateCamera();
