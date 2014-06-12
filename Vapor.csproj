@@ -25,7 +25,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Audio\AudioManager.ts" />
     <TypeScriptCompile Include="Audio\AudioSource.ts" />
-    <TypeScriptCompile Include="Audio\waa.d.ts" />
+    <TypeScriptCompile Include="Audio\waa.ts" />
     <TypeScriptCompile Include="Game\Component.ts" />
     <TypeScriptCompile Include="Game\GameObject.ts" />
     <TypeScriptCompile Include="Game\Scene.ts" />
@@ -54,7 +54,7 @@
     <TypeScriptCompile Include="Math\Transform.ts" />
     <TypeScriptCompile Include="Math\Vector2.ts" />
     <TypeScriptCompile Include="Math\Vector4.ts" />
-    <TypeScriptCompile Include="Physics\box2dweb.d.ts" />
+    <TypeScriptCompile Include="Physics\box2dweb.ts" />
     <TypeScriptCompile Include="Physics\BoxCollider.ts" />
     <TypeScriptCompile Include="Physics\CircleCollider.ts" />
     <TypeScriptCompile Include="Physics\Collider.ts" />

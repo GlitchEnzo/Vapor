@@ -1,6 +1,6 @@
 ﻿/// <reference path="Audio/AudioManager.ts" />
 /// <reference path="Audio/AudioSource.ts" />
-/// <reference path="Audio/waa.d.ts" />
+/// <reference path="Audio/waa.ts" />
 
 /// <reference path="Game/Component.ts" />
 /// <reference path="Game/GameObject.ts" />
@@ -35,7 +35,7 @@
 /// <reference path="Math/Vector3.ts" />
 /// <reference path="Math/Vector4.ts" />
 
-/// <reference path="Physics/box2dweb.d.ts" />
+/// <reference path="Physics/box2dweb.ts" />
 /// <reference path="Physics/BoxCollider.ts" />
 /// <reference path="Physics/CircleCollider.ts" />
 /// <reference path="Physics/Collider.ts" />
