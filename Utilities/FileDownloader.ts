@@ -18,7 +18,7 @@
                             callback(request);
                         }
                         else {
-                            console.error(request.statusText);
+                            console.error(request.status + ': ' + request.statusText);
                         }
                     }
                 };

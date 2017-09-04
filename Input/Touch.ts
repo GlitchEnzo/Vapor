@@ -34,7 +34,7 @@ export class TouchInput {
                 if (!found) {
                     var newTouch: TouchData = new TouchData();
                     newTouch.fingerId = changedTouches[i].identifier;
-                    newTouch.position = new Vector3(changedTouches[i].screen.x, changedTouches[i].screen.y, 0.0);
+                    newTouch.position = new Vector3(changedTouches[i].screenX, changedTouches[i].screenY, 0.0);
                     //newTouch.deltaPosition = new Point(0.0, 0.0);
                     //newTouch.deltaTime = 0.0;
                     //newTouch.tapCount = 0;
@@ -123,63 +123,4 @@ export class TouchInput {
             return TouchInput.currentFrame.length;
         }
     }
-}
-
-
-// -------------------------------------------------------------------------------------------------------------
-// NOTE: TypeScript does not define any sort of Touch functionality, so we must force that functionality into it.
-//       http://stackoverflow.com/questions/12869055/does-typescript-support-touchevent
-// -------------------------------------------------------------------------------------------------------------
-
-interface Touch {
-    identifier: number;
-    target: EventTarget;
-    screenX: number;
-    screenY: number;
-    clientX: number;
-    clientY: number;
-    pageX: number;
-    pageY: number;
-};
-
-interface TouchList {
-    length: number;
-    item(index: number): Touch;
-    identifiedTouch(identifier: number): Touch;
-};
-
-interface TouchEvent extends UIEvent {
-    touches: TouchList;
-    targetTouches: TouchList;
-    changedTouches: TouchList;
-    altKey: boolean;
-    metaKey: boolean;
-    ctrlKey: boolean;
-    shiftKey: boolean;
-    initTouchEvent(type: string, canBubble: boolean, cancelable: boolean, view: Window, detail: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, touches: TouchList, targetTouches: TouchList, changedTouches: TouchList);
-};
-
-declare var TouchEvent: {
-    prototype: TouchEvent;
-    new (): TouchEvent;
-}
-
-//
-// add touch events to HTMLElement
-//
-interface HTMLElement extends Element, ElementCSSInlineStyle, MSEventAttachmentTarget, MSNodeExtensions {
-    ontouchstart: (ev: TouchEvent) => any;
-    ontouchmove: (ev: TouchEvent) => any;
-    ontouchend: (ev: TouchEvent) => any;
-    ontouchcancel: (ev: TouchEvent) => any;
-}
-
-//
-// add touch events to Document
-//
-interface Document extends Node, NodeSelector, MSEventAttachmentTarget, DocumentEvent, MSResourceMetadata, MSNodeExtensions {
-    ontouchstart: (ev: TouchEvent) => any;
-    ontouchmove: (ev: TouchEvent) => any;
-    ontouchend: (ev: TouchEvent) => any;
-    ontouchcancel: (ev: TouchEvent) => any;
 }

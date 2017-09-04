@@ -1,6 +1,5 @@
 ﻿/// <reference path="Audio/AudioManager.ts" />
 /// <reference path="Audio/AudioSource.ts" />
-/// <reference path="Audio/waa.ts" />
 
 /// <reference path="Game/Component.ts" />
 /// <reference path="Game/GameObject.ts" />

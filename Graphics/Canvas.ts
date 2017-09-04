@@ -29,7 +29,7 @@
             }
 
             try {
-                gl = this.element.getContext("webgl");
+                gl = <WebGLRenderingContext>this.element.getContext("webgl");
                 if (gl == null) {
                     console.log("Using experimental context.");
                     gl = this.element.getContext("experimental-webgl");
