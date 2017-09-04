@@ -6,7 +6,7 @@
          * The callback is called after the file is done loading.
          * The callback is in the form: Callback(request: XMLHttpRequest): void
          */
-        public static Download(url: string, callback: (request: XMLHttpRequest) => any, responseType: string = "text"): XMLHttpRequest {
+        public static Download(url: string, callback: (request: XMLHttpRequest) => any, responseType: XMLHttpRequestResponseType = "text"): XMLHttpRequest {
             try {
                 var request: XMLHttpRequest = new XMLHttpRequest();
 
